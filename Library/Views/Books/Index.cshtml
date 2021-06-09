@@ -1,26 +1,25 @@
-@*@{
+@{
   Layout = "_Layout";
 }
 
 @using Library.Models;
-@model IEnumerable<Library.Models.Book>
 
-<h1>Books for @User.Identity.Name</h1>
+<h1>List of books</h1>
 
 @if (Model.Any())
 {
   <ul>
   @foreach (Book book in Model)
     {
-      <li>@Html.ActionLink($"{book.Name}", "Details", new { id = item.ItemId })</li>
+      <li>@Html.ActionLink($"{book.Title}", "Details", new { id = book.BookId })</li>
     }
   </ul>
 }
 else
 {
-  <h3>No items have been added yet!</h3>
+  <h3>No books have been added yet!</h3>
 }
 
-<p>@Html.ActionLink("Add new item", "Create")</p>
+<p>@Html.ActionLink("Add new book", "Create")</p>
 
 <p>@Html.ActionLink("Home", "Index", "Home")</p> *@
