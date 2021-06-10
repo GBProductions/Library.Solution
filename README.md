@@ -5,8 +5,7 @@
 
 #### By _**Garrett Brown, Jesse Callahan, Faisal Rana, Sofia Acosta**_
 
-## Description
-_A program that allows Dr. Sillystringz's Factory to keep track of Engineers and Machines. Users can create Engineers, Machines, and assorted details. Users can also keep track of which Machines are assigned to which Engineers. Users can also edit or delete details._
+## Title
 
 ### User Stories
 
@@ -14,12 +13,6 @@ _A program that allows Dr. Sillystringz's Factory to keep track of Engineers and
     <summary>Expand</summary>
 
 #### User Stories
-As the factory manager, I need to be able to see a list of all engineers, and I need to be able to see a list of all machines.
-As the factory manager, I need to be able to select a engineer, see their details, and see a list of all machines that engineer is licensed to repair. I also need to be able to select a machine, see its details, and see a list of all engineers licensed to repair it.
-As the factory manager, I need to add new engineers to our system when they are hired. I also need to add new machines to our system when they are installed.
-As the factory manager, I should be able to add new machines even if no engineers are employed. I should also be able to add new engineers even if no machines are installed
-As the factory manager, I need to be able to add or remove machines that a specific engineer is licensed to repair. I also need to be able to modify this relationship from the other side, and add or remove engineers from a specific machine.
-I should be able to navigate to a splash page that lists all engineers and machines. Users should be able to click on an individual engineer or machine to see all the engineers/machines that belong to it.
 
 </details>
 
@@ -43,9 +36,9 @@ Table of Contents
 
 ### Installation of Program
 * _Open the terminal on your local machine and navigate to "Desktop."_
-* _Clone "Factory.Solution"" with the following git command `git clone https://github.com/GBProductions/Factory.Solution.git_`
-* _Navigate to the top level of the repository with the command `cd Factory.Solution`_
-* _Navigate into "Factory" with git command `cd Factory`_
+* _Clone "Library.Solution"" with the following git command `https://github.com/GBProductions/Library.Solution`_
+* _Navigate to the top level of the repository with the command `cd Library.Solution`_
+* _Navigate into "Library" with git command `cd Factory`_
 
 
 ### Recreate Database
@@ -65,7 +58,7 @@ Table of Contents
 ```
 
 4. Replace `YOUR-PASSWORD` with password you selected when installing MySQLWorkbench.
-5. Replace `YOUR-DATABASE` with `garrett_brown`.
+5. Replace `YOUR-DATABASE` with name of database.
 
 ### Startup
 * Navigate to Factory.Solution folder in project.
@@ -83,6 +76,9 @@ _There are currently no known bugs._
 ## Support and contact details
 
 _For assistance, please contact Garrett Brown <garrettpaulbrown@gmail.com>_
+* Co-authored-by: Sofia Acosta <sofiaacostarascon@gmail.com>
+* Co-authored-by: Jesse Callahan <jessetylercallahan@gmail.com>
+* Co-authored-by: Faisal Rana <inquisitive@gmail.com>"
 
 ## Technologies Used
 
@@ -102,7 +98,7 @@ _For assistance, please contact Garrett Brown <garrettpaulbrown@gmail.com>_
 
 *Available under MIT Licensing*
 
-Copyright (c) 2021 **_Garrett Brown_**
+Copyright (c) 2021 **_Garrett Brown, Jesse Callahan, Faisal Rana, Sofia Acosta_**
 
 
 
