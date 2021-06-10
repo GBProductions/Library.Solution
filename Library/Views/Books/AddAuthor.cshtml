@@ -10,7 +10,7 @@
 
 @using (Html.BeginForm())
 {
-  @Html.HiddenFor(model => model.AuthorId)
+  @Html.HiddenFor(model => model.BookId)
 
   @Html.Label("Select author")
   @Html.DropDownList("AuthorId")

@@ -3,8 +3,9 @@
 }
 
 @using Library.Models;
+@model IEnumerable<Library.Models.Book>
 
-<h1>List of books</h1>
+<h1>Books for @User.Identity.Name</h1>
 
 @if (Model.Any())
 {
@@ -17,9 +18,9 @@
 }
 else
 {
-  <h3>No books have been added yet!</h3>
+  <h3>No items have been added yet!</h3>
 }
 
 <p>@Html.ActionLink("Add new book", "Create")</p>
 
-<p>@Html.ActionLink("Home", "Index", "Home")</p> *@
+<p>@Html.ActionLink("Home", "Index", "Home")</p>
