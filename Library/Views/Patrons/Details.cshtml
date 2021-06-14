@@ -1,0 +1,30 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Library.Models;
+@* @model Library.Models.Patron *@
+
+<h2> Patron Details</h2>
+
+<h3><b>@Model.Name</b></h3>
+
+@if (@Model.Books.Count == 0)
+{
+  <p> No books have been checked out by this Patron</p>
+}
+
+else 
+{
+  <h3>This patron has the following books checked out:</h3>
+  <ul>
+    @foreach (Book book in @Model.Books)
+  {
+    <li>@book.Title</li>
+    <li>@Html.ActionLink($"{book.Title}", "Details", "Books", new { id = book.BookId })</li>
+  }
+
+  </ul>
+}
+<li>@Html.ActionLink($"Check out a book for {@Model.Name}", "Checkout", new { id = Model.PatronId })</li>
+
