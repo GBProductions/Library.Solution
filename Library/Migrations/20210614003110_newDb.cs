@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Library.Migrations
 {
-    public partial class Initial : Migration
+    public partial class newDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,6 +58,19 @@ namespace Library.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Authors", x => x.AuthorId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Patrons",
+                columns: table => new
+                {
+                    PatronId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Patrons", x => x.PatronId);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,6 +186,7 @@ namespace Library.Migrations
                     BookId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    PatronId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "varchar(255) CHARACTER SET utf8mb4", nullable: true)
                 },
                 constraints: table =>
@@ -184,6 +198,12 @@ namespace Library.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Books_Patrons_PatronId",
+                        column: x => x.PatronId,
+                        principalTable: "Patrons",
+                        principalColumn: "PatronId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -260,6 +280,11 @@ namespace Library.Migrations
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Books_PatronId",
+                table: "Books",
+                column: "PatronId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Books_UserId",
                 table: "Books",
                 column: "UserId");
@@ -296,6 +321,9 @@ namespace Library.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Patrons");
         }
     }
 }

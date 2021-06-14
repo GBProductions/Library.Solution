@@ -78,6 +78,7 @@ namespace Library.Controllers
       ViewBag.BookId = new SelectList(_db.Books, "BookId", "Title");
       return View(thisAuthor);
     }
+    
     [HttpPost]
     public ActionResult AddBook(Author author, int BookId)
     {

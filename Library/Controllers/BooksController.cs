@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using System;
 
 namespace Library.Controllers
 {
@@ -23,34 +24,34 @@ namespace Library.Controllers
       _db = db;
     }
 
-    public async Task<ActionResult> Index()
+    public ActionResult Index()
 
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
-      // List<Book> model = _db.Books.ToList();
-      return View(userBooks);
+      // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      // var currentUser = await _userManager.FindByIdAsync(userId);
+      // var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      List<Book> model = _db.Books.ToList();
+      return View(model);
     }
 
     public ActionResult Create()
     {
-      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
+      ViewBag.PatronId = new SelectList(_db.Patrons, "PatronId", "Name");
       return View();
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(Book book, int AuthorId)
+    public ActionResult Create(Book book)
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      book.User = currentUser;
+      // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      // var currentUser = await _userManager.FindByIdAsync(userId);
+      // book.User = currentUser;
       _db.Books.Add(book);
       _db.SaveChanges();
-      if (AuthorId != 0)
-      {
-          _db.AuthorBook.Add(new AuthorBook() { AuthorId = AuthorId, BookId = book.BookId });
-      }
+      // if (PatronId != 0)
+      // {
+      //   _db.AuthorBook.Add(new AuthorBook() { AuthorId = AuthorId, BookId = book.BookId });
+      // }
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
@@ -95,7 +96,7 @@ namespace Library.Controllers
     {
       if (AuthorId != 0)
       {
-      _db.AuthorBook.Add(new AuthorBook() { AuthorId = AuthorId, BookId = book.BookId });
+        _db.AuthorBook.Add(new AuthorBook() { AuthorId = AuthorId, BookId = book.BookId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");

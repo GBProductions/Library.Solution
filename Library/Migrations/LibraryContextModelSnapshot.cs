@@ -122,6 +122,9 @@ namespace Library.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("PatronId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -130,9 +133,25 @@ namespace Library.Migrations
 
                     b.HasKey("BookId");
 
+                    b.HasIndex("PatronId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("Library.Models.Patron", b =>
+                {
+                    b.Property<int>("PatronId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("PatronId");
+
+                    b.ToTable("Patrons");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -284,9 +303,17 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.Models.Book", b =>
                 {
+                    b.HasOne("Library.Models.Patron", "Patron")
+                        .WithMany("Books")
+                        .HasForeignKey("PatronId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Library.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Patron");
 
                     b.Navigation("User");
                 });
@@ -350,6 +377,11 @@ namespace Library.Migrations
             modelBuilder.Entity("Library.Models.Book", b =>
                 {
                     b.Navigation("JoinEntities");
+                });
+
+            modelBuilder.Entity("Library.Models.Patron", b =>
+                {
+                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }
