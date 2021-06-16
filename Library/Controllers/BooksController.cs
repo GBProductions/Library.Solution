@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using System;
 
 namespace Library.Controllers
 {
@@ -23,36 +24,50 @@ namespace Library.Controllers
       _db = db;
     }
 
+    [AllowAnonymous]
     public ActionResult Index()
 
     {
-      // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      // var currentUser = await _userManager.FindByIdAsync(userId);
-      // var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
+
       List<Book> model = _db.Books.ToList();
       return View(model);
     }
 
     public ActionResult Create()
     {
+      ViewBag.PatronId = new SelectList(_db.Patrons, "PatronId", "Name");
       ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
       return View();
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(Book book, int AuthorId)
+    public async Task<ActionResult> Create(Book book, string AuthorName, int AuthorId)
     {
+      Console.Out.WriteLine(AuthorName);
+      Console.Out.WriteLine(AuthorId);
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
       book.User = currentUser;
+
+      // if (authorName.FindFirst(stuff) === null) {
+      //  RedirectToAction("Index")
+      //} else
       _db.Books.Add(book);
       _db.SaveChanges();
       if (AuthorId != 0)
       {
-          _db.AuthorBook.Add(new AuthorBook() { AuthorId = AuthorId, BookId = book.BookId });
+        _db.AuthorBook.Add(new AuthorBook() { AuthorId = AuthorId, BookId = book.BookId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    public async Task<ActionResult> LibraryIndex()
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      return View(userBooks);
     }
 
     public ActionResult Details(int id)
@@ -66,6 +81,7 @@ namespace Library.Controllers
 
     public ActionResult Edit(int id)
     {
+      ViewBag.PatronId = new SelectList(_db.Patrons, "PatronId", "Name");
       var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
       ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
       return View(thisBook);
@@ -74,6 +90,8 @@ namespace Library.Controllers
     [HttpPost]
     public ActionResult Edit(Book book, int AuthorId)
     {
+      _db.Books.Add(book);
+      _db.SaveChanges();
       if (AuthorId != 0)
       {
         _db.AuthorBook.Add(new AuthorBook() { AuthorId = AuthorId, BookId = book.BookId });
@@ -95,7 +113,7 @@ namespace Library.Controllers
     {
       if (AuthorId != 0)
       {
-      _db.AuthorBook.Add(new AuthorBook() { AuthorId = AuthorId, BookId = book.BookId });
+        _db.AuthorBook.Add(new AuthorBook() { AuthorId = AuthorId, BookId = book.BookId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");

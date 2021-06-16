@@ -11,9 +11,15 @@
   @Html.LabelFor(model => model.Title)
   @Html.TextBoxFor(model => model.Title)
 
-  @Html.Label("Select author")
+  @Html.Label("add author")
+  @Html.TextBox("AuthorName")
+
+  @Html.Label("Add Author")
   @Html.DropDownList("AuthorId")
 
-  <input type="submit" value="Add new author" class="btn btn-default" />
+  @Html.Label("Select checkout status")
+  @Html.DropDownList("PatronId")
+
+  <input type="submit" value="Add new book" class="btn btn-default" />
 }
 <p>@Html.ActionLink("Show all Books", "Index")</p>

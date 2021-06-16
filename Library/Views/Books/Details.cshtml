@@ -14,12 +14,12 @@
 }
 else
 {
-  <h4>Authors this book belongs to:</h4>
+  <h4>Authors of this book:</h4>
   <ul>
   @foreach (var join in Model.JoinEntities)
     {
       <li>@join.Author.Name</li>
-      @using (Html.BeginForm("DeleteAuthor", "Authors"))
+      @using (Html.BeginForm("DeleteAuthor", "Books"))
       {
         @Html.Hidden("joinId", @join.AuthorBookId)
         <input type="submit" value="Delete this Author from this book" />
@@ -28,7 +28,7 @@ else
   </ul>
 }
 
-<p>@Html.ActionLink("Add a Book", "AddBook", new { id = Model.BookId })</p>
+<p>@Html.ActionLink("Add a Author", "AddAuthor", new { id = Model.BookId })</p>
 <p>@Html.ActionLink("Back to list", "Index")</p>
 <p>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</p>
 <p>@Html.ActionLink("Delete Book", "Delete", new { id = Model.BookId })</p>
